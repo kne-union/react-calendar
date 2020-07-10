@@ -1,0 +1,89 @@
+@import "~@fullcalendar/common/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+.fc-unthemed td.fc-today,
+.fc-today {
+    background: #fcf8e3;
+}
+.fc-current {
+    background: rgba(243, 248, 255, 1) !important;
+}
+.fc-time-grid .fc-slats td {
+    /* height: 4.5em; */
+}
+.fc-widget-header tr th {
+    padding: 0;
+}
+.fc-widget-header tr th > span {
+    display: block;
+}
+.fc-widget-header tr th > span > span {
+    line-height: 1;
+    padding: 6px 0;
+    display: block;
+}
+.fc-widget-header tr th > span > span.fc-current {
+    background: rgba(243, 248, 255, 1);
+}
+.fc-ltr .fc-axis {
+    color: rgba(156, 178, 205, 1);
+}
+.fc .fc-button-primary {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 11px;
+    border-color: #ffffff;
+    color: rgba(164, 185, 210, 1);
+}
+.fc .fc-button-primary:hover {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    color: rgba(164, 185, 210, 1);
+}
+.fc .fc-button-primary:disabled {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 11px;
+    border-color: #ffffff;
+    color: rgba(39, 49, 66, 1);
+}
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    color: rgba(164, 185, 210, 1);
+}
+.fc .fc-button-primary:not(:disabled):active:focus,
+.fc .fc-button-primary:not(:disabled).fc-button-active:focus {
+    box-shadow: none;
+}
+.fc .fc-button-primary:focus {
+    box-shadow: none;
+}
+.fc-view-container {
+    background: #ffffff;
+}
+.fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
+    border: 1px solid rgba(247, 248, 252, 1);
+}
+.fc .fc-timegrid-slot-label, .fc-timegrid-axis.fc-scrollgrid-shrink {
+    color: rgba(156, 178, 205, 1);
+}
+th.fc-col-header-cell.fc-day-today {
+    background-color: rgba(255, 220, 40, 0.15);
+    background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
+}
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: #f5f5f5;
+    border-color: #f5f5f5;
+    color: rgba(164, 185, 210, 1);
+}
+.fc-time-grid-event.fc-event .fc-time {
+    padding: 2px;
+}
+.fc-time-grid-event.fc-event .fc-time span:nth-child(2) {
+    float: right;
+}
+.fc-segement,
+.fc-segement:hover {
+    background: #ffffff;
+    color: rgba(49, 56, 83, 1);
+}
