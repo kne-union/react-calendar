@@ -31,6 +31,7 @@ export default class Calendar extends React.Component {
             <FullCalendar
                 {...rest}
                 customButtons={this.state.inlineCustomButtons}
+                dateClick={this.props.onDateClick}
                 plugins={[timeGridPlugin, interactionPlugin, momentPlugin]}
                 ref={forwardedRef} />
         )

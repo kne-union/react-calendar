@@ -21,6 +21,11 @@ export default () => {
       title: '测试2'
     }
   ]
+  const onDateClick = (arg) => {
+    debugger
+    console.log('onDateClick', arg)
+  }
+
   useEffect(() => {
     console.log('calendarRef', calendarRef.current)
   }, [])
@@ -29,6 +34,7 @@ export default () => {
         <Calendar
             ref={calendarRef}
             events={events}
+            onDateClick={onDateClick}
             editable={true}
             droppable={true}
             selectable={true} />
