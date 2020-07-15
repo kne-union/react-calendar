@@ -1,5 +1,5 @@
 {
-  "name": "react-time-calendar",
+  "name": "@juliewang/react-calendar",
   "version": "0.1.1",
   "description": "日历控件",
   "main": "dist/index.js",
