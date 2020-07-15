@@ -1,5 +1,5 @@
-@import "~@fullcalendar/common/main.css";
-@import "~@fullcalendar/timegrid/main.css";
+/*@import "~@fullcalendar/core/main.css";*/
+/*@import "~@fullcalendar/timegrid/main.css";*/
 .fc-unthemed td.fc-today,
 .fc-today {
     background: #fcf8e3;
@@ -27,57 +27,75 @@
 .fc-ltr .fc-axis {
     color: rgba(156, 178, 205, 1);
 }
-.fc .fc-button-primary {
+.fc-button-primary {
     background: rgba(255, 255, 255, 1);
     border-radius: 11px;
     border-color: #ffffff;
     color: rgba(164, 185, 210, 1);
 }
-.fc .fc-button-primary:hover {
+.fc-button-primary:hover {
     background-color: #f5f5f5;
     border-color: #f5f5f5;
     color: rgba(164, 185, 210, 1);
 }
-.fc .fc-button-primary:disabled {
+.fc-button-primary:disabled {
     background: rgba(255, 255, 255, 1);
     border-radius: 11px;
     border-color: #ffffff;
     color: rgba(39, 49, 66, 1);
 }
-.fc .fc-button-primary:not(:disabled):active,
-.fc .fc-button-primary:not(:disabled).fc-button-active {
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active {
     background-color: #f5f5f5;
     border-color: #f5f5f5;
     color: rgba(164, 185, 210, 1);
 }
-.fc .fc-button-primary:not(:disabled):active:focus,
-.fc .fc-button-primary:not(:disabled).fc-button-active:focus {
+.fc-button-primary:not(:disabled):active:focus,
+.fc-button-primary:not(:disabled).fc-button-active:focus {
     box-shadow: none;
 }
-.fc .fc-button-primary:focus {
+.fc-button-primary:focus {
     box-shadow: none;
 }
 .fc-view-container {
     background: #ffffff;
 }
-.fc-theme-standard td, .fc-theme-standard th, .fc-theme-standard .fc-scrollgrid {
-    border: 1px solid rgba(247, 248, 252, 1);
+.fc-unthemed th,
+.fc-unthemed td,
+.fc-unthemed thead,
+.fc-unthemed tbody,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-row,
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-list-heading td {
+    border-color: rgba(247, 248, 252, 1);
 }
-.fc .fc-timegrid-slot-label, .fc-timegrid-axis.fc-scrollgrid-shrink {
-    color: rgba(156, 178, 205, 1);
-}
-th.fc-col-header-cell.fc-day-today {
-    background-color: rgba(255, 220, 40, 0.15);
-    background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
-}
-.fc .fc-button-primary:not(:disabled):active,
-.fc .fc-button-primary:not(:disabled).fc-button-active {
+
+.fc-button-primary:not(:disabled):active,
+.fc-button-primary:not(:disabled).fc-button-active {
     background-color: #f5f5f5;
     border-color: #f5f5f5;
     color: rgba(164, 185, 210, 1);
 }
+.fc-event {
+    border: 1px solid rgba(55, 136, 216, 0.6);
+}
+.fc-event, .fc-event-dot {
+    background-color: #ffffff;
+}
+.fc-time-grid-event .fc-content {
+    margin-top: -1px;
+}
 .fc-time-grid-event.fc-event .fc-time {
     padding: 2px;
+    color: rgb(55, 136, 216);
+    background: rgba(55, 136, 216, 0.4);
+}
+.fc-time-grid-event .fc-title {
+    padding: 2px;
+    color: rgb(49, 56, 83);
 }
 .fc-time-grid-event.fc-event .fc-time span:nth-child(2) {
     float: right;
@@ -87,3 +105,4 @@ th.fc-col-header-cell.fc-day-today {
     background: #ffffff;
     color: rgba(49, 56, 83, 1);
 }
+
