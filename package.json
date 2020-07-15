@@ -1,5 +1,5 @@
 {
-  "name": "@kne/react-calendar",
+  "name": "react-time-calendar",
   "version": "0.1.1",
   "description": "日历控件",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "form",
     "validate"
   ],
-  "author": "linzp",
+  "author": "juliewang",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kne-union/react-calendar/issues"
