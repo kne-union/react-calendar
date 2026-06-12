@@ -1,10 +1,15 @@
 /* global _ReactCalendar, _FormInfo, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { default: FormInfo, Input, TextArea, Select } = _FormInfo;
-const { Flex, Space, Typography, message } = antd;
+const { default: FormInfo, Input, TextArea, Select: FormSelect } = _FormInfo;
+const { Flex, Select, Space, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -35,7 +40,7 @@ const formInner = (
     column={1}
     list={[
       <Input name="title" label="面试主题" rule="REQ" placeholder="如：前端工程师 - 候选人姓名" block />,
-      <Select
+      <FormSelect
         name="interviewType"
         label="面试形式"
         rule="REQ"
@@ -53,6 +58,7 @@ const formInner = (
 );
 
 const ScheduleExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [events, setEvents] = useState(interviewEvents);
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
   const [actionLog, setActionLog] = useState([]);
@@ -78,10 +84,12 @@ const ScheduleExample = () => {
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         安排模式 API：`timeUnit`、`dayStart`、`dayEnd`、`allowMultiSelect`、`formInner`、`formProps`、`defaultFormValues`、`onCreate`、`onFreeSlotClick`、`onSlotRangeChange`。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="schedule"
         value={selectedDate}
         onChange={(date, info) => {

@@ -1,9 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Typography } = antd;
+const { Flex, Select, Space, Typography } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -23,6 +28,7 @@ const interviewEvents = [
 ];
 
 const ControlledExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
   const [currentMonth, setCurrentMonth] = useState('2026-06-01');
   const [logs, setLogs] = useState([]);
@@ -34,11 +40,13 @@ const ControlledExample = () => {
   return (
     <Flex vertical gap={12}>
       <Text type="secondary">受控 API：`value` / `onChange` 控制选中日期，`current` / `onCurrentChange` 控制浏览月份（与 `defaultValue` / `defaultCurrent` 相对）。</Text>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Space wrap>
         <Text>选中日期：{selectedDate}</Text>
         <Text>浏览月份：{dayjs(currentMonth).format('YYYY-MM')}</Text>
       </Space>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         value={selectedDate}
         current={currentMonth}

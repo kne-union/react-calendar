@@ -49,8 +49,14 @@ npm i --save @kne/react-calendar
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Typography, message } = antd;
+const { Flex, Select, Typography, message } = antd;
+const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -85,12 +91,17 @@ const interviewEvents = [
   }
 ];
 
-const BaseExample = () => (
-  <Flex vertical gap={8}>
-    <Text type="secondary">最基础用法：&#96;mode="view"&#96; + &#96;events&#96; + &#96;defaultValue&#96;。日程项可配置 &#96;onClick&#96; 响应点击。</Text>
-    <ScheduleCalendar mode="view" defaultValue="2026-06-11" defaultCurrent="2026-06-01" events={interviewEvents} />
-  </Flex>
-);
+const BaseExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
+
+  return (
+    <Flex vertical gap={8}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+      <Text type="secondary">最基础用法：&#96;mode="view"&#96; + &#96;events&#96; + &#96;defaultValue&#96;。日程项可配置 &#96;onClick&#96; 响应点击。</Text>
+      <ScheduleCalendar locale={locale} mode="view" defaultValue="2026-06-11" defaultCurrent="2026-06-01" events={interviewEvents} />
+    </Flex>
+  );
+};
 
 render(<BaseExample />);
 
@@ -104,9 +115,14 @@ render(<BaseExample />);
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Switch, Typography, message } = antd;
+const { Flex, Select, Space, Switch, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -160,6 +176,7 @@ const interviewEvents = [
 ];
 
 const ViewExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [loading, setLoading] = useState(false);
   const [lastChange, setLastChange] = useState('-');
 
@@ -168,6 +185,7 @@ const ViewExample = () => {
       <Text type="secondary">
         单条日程可通过 &#96;event.onClick&#96; 响应点击；未配置时由 &#96;onEventClick&#96; 统一处理（见 iv-1004、iv-1005）。
       </Text>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Space wrap>
         <Switch checked={loading} onChange={setLoading} checkedChildren="loading" unCheckedChildren="idle" />
         <Text type="secondary" style={{ fontSize: 12 }}>
@@ -175,6 +193,7 @@ const ViewExample = () => {
         </Text>
       </Space>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         defaultValue="2026-06-11"
         defaultCurrent="2026-06-01"
@@ -202,10 +221,15 @@ render(<ViewExample />);
 /* global _ReactCalendar, _FormInfo, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { default: FormInfo, Input, TextArea, Select } = _FormInfo;
-const { Flex, Space, Typography, message } = antd;
+const { default: FormInfo, Input, TextArea, Select: FormSelect } = _FormInfo;
+const { Flex, Select, Space, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -236,7 +260,7 @@ const formInner = (
     column={1}
     list={[
       <Input name="title" label="面试主题" rule="REQ" placeholder="如：前端工程师 - 候选人姓名" block />,
-      <Select
+      <FormSelect
         name="interviewType"
         label="面试形式"
         rule="REQ"
@@ -254,6 +278,7 @@ const formInner = (
 );
 
 const ScheduleExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [events, setEvents] = useState(interviewEvents);
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
   const [actionLog, setActionLog] = useState([]);
@@ -279,10 +304,12 @@ const ScheduleExample = () => {
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         安排模式 API：&#96;timeUnit&#96;、&#96;dayStart&#96;、&#96;dayEnd&#96;、&#96;allowMultiSelect&#96;、&#96;formInner&#96;、&#96;formProps&#96;、&#96;defaultFormValues&#96;、&#96;onCreate&#96;、&#96;onFreeSlotClick&#96;、&#96;onSlotRangeChange&#96;。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="schedule"
         value={selectedDate}
         onChange={(date, info) => {
@@ -351,8 +378,14 @@ render(<ScheduleExample />);
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Typography } = antd;
+const { Flex, Select, Typography } = antd;
+const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -398,13 +431,18 @@ const lunchDisabled = ({ slot }) => {
   return false;
 };
 
-const RulesExample = () => (
-  <Flex vertical gap={12}>
-    <Text type="secondary">
-      规则 API：&#96;disabledDate&#96;（禁用 6/10 前日期）、&#96;availableDateTime&#96;（仅工作日 9:00-18:00）、&#96;disabledDateTime&#96;（12:00 午休禁用并展示 reason）。
-    </Text>
-    <ScheduleCalendar
-      mode="schedule"
+const RulesExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
+
+  return (
+    <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+      <Text type="secondary">
+        规则 API：&#96;disabledDate&#96;（禁用 6/10 前日期）、&#96;availableDateTime&#96;（仅工作日 9:00-18:00）、&#96;disabledDateTime&#96;（12:00 午休禁用并展示 reason）。
+      </Text>
+      <ScheduleCalendar
+        locale={locale}
+        mode="schedule"
       defaultValue="2026-06-11"
       events={interviewEvents}
       timeUnit={30}
@@ -421,9 +459,10 @@ const RulesExample = () => (
           </Text>
         </Flex>
       )}
-    />
-  </Flex>
-);
+      />
+    </Flex>
+  );
+};
 
 render(<RulesExample />);
 
@@ -437,9 +476,14 @@ render(<RulesExample />);
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Typography } = antd;
+const { Flex, Select, Space, Typography } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -459,6 +503,7 @@ const interviewEvents = [
 ];
 
 const ControlledExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
   const [currentMonth, setCurrentMonth] = useState('2026-06-01');
   const [logs, setLogs] = useState([]);
@@ -470,11 +515,13 @@ const ControlledExample = () => {
   return (
     <Flex vertical gap={12}>
       <Text type="secondary">受控 API：&#96;value&#96; / &#96;onChange&#96; 控制选中日期，&#96;current&#96; / &#96;onCurrentChange&#96; 控制浏览月份（与 &#96;defaultValue&#96; / &#96;defaultCurrent&#96; 相对）。</Text>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Space wrap>
         <Text>选中日期：{selectedDate}</Text>
         <Text>浏览月份：{dayjs(currentMonth).format('YYYY-MM')}</Text>
       </Space>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         value={selectedDate}
         current={currentMonth}
@@ -519,9 +566,14 @@ render(<ControlledExample />);
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Tag, Typography, message } = antd;
+const { Flex, Select, Space, Tag, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -545,14 +597,17 @@ const interviewEvents = [
 ];
 
 const CustomRenderExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [events, setEvents] = useState(interviewEvents);
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         自定义渲染 API：&#96;renderDateCell&#96;、&#96;renderTimeSlot&#96;、&#96;renderOccupiedSlot&#96;、&#96;renderPanelHeader&#96;，以及根节点 &#96;className&#96; / &#96;style&#96;。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="schedule"
         defaultValue="2026-06-12"
         events={events}
@@ -641,9 +696,14 @@ render(<CustomRenderExample />);
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar, groupEventsByDate, generateTimeSlots } = _ReactCalendar;
-const { Flex, Typography } = antd;
+const { Flex, Select, Typography } = antd;
 const { useMemo, useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -667,6 +727,7 @@ const interviewEvents = [
 ];
 
 const UtilsExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
 
   const grouped = useMemo(() => groupEventsByDate(interviewEvents), []);
@@ -688,10 +749,12 @@ const UtilsExample = () => {
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         工具函数：&#96;groupEventsByDate&#96; 按天聚合日程，&#96;generateTimeSlots&#96; 生成时间段及 &#96;free/occupied/disabled&#96; 状态。下方组件切换日期时同步更新统计。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         value={selectedDate}
         onChange={date => setSelectedDate(dayjs(date).format('YYYY-MM-DD'))}
@@ -765,6 +828,7 @@ type ScheduleDateTimeRuleContext = {
 | 属性               | 类型                                                                   | 默认值                | 说明                                                         |
 | ------------------ | ---------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------ |
 | mode               | `'view' \| 'schedule'`                                                 | `'view'`              | 组件模式，查看状态展示日程列表，安排状态展示时间段和创建表单 |
+| locale             | `'zh-CN' \| 'en-US' \| string`                                         | `'zh-CN'`             | 组件内置文案语言，传入后切换中英文界面                         |
 | value              | `DateLike`                                                             | -                     | 当前选中日期，传入后为受控模式                               |
 | defaultValue       | `DateLike`                                                             | -                     | 当前选中日期默认值，不传 `value` 时为非受控模式              |
 | onChange           | `(date: Date, info) => void`                                           | -                     | 当前选中日期变化回调，配合 `@kne/use-control-value`          |

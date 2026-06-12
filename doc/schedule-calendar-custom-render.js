@@ -1,9 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Tag, Typography, message } = antd;
+const { Flex, Select, Space, Tag, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -27,14 +32,17 @@ const interviewEvents = [
 ];
 
 const CustomRenderExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [events, setEvents] = useState(interviewEvents);
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         自定义渲染 API：`renderDateCell`、`renderTimeSlot`、`renderOccupiedSlot`、`renderPanelHeader`，以及根节点 `className` / `style`。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="schedule"
         defaultValue="2026-06-12"
         events={events}

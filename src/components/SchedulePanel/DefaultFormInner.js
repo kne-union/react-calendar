@@ -1,8 +1,7 @@
 import FormInfo, { Input, TextArea } from '@kne/form-info';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 
-const DefaultFormInnerInner = () => {
+const DefaultFormInner = () => {
   const { formatMessage } = useIntl();
   return (
     <FormInfo
@@ -14,7 +13,5 @@ const DefaultFormInnerInner = () => {
     />
   );
 };
-
-const DefaultFormInner = withLocale(DefaultFormInnerInner);
 
 export default DefaultFormInner;

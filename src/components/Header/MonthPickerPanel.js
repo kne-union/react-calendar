@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { getMonthPickerItemLabel } from '../../formatCalendarLabels';
 import { classNames } from '../../utils';
 import style from './style.module.scss';
 
-const MonthPickerPanelInner = ({ value, onSelect }) => {
+const MonthPickerPanel = ({ value, onSelect }) => {
   const { formatMessage } = useIntl();
   const months = useMemo(() => Array.from({ length: 12 }, (_, index) => index), []);
   return (
@@ -20,7 +19,5 @@ const MonthPickerPanelInner = ({ value, onSelect }) => {
     </div>
   );
 };
-
-const MonthPickerPanel = withLocale(MonthPickerPanelInner);
 
 export default MonthPickerPanel;

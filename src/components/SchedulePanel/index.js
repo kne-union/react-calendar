@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Button, Card, Spin } from 'antd';
 import { Form, SubmitButton } from '@kne/form-info';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { DATE_FORMAT } from '../../constants';
 import useScheduleSelectionGesture from '../../useScheduleSelectionGesture';
 import { classNames, dedupeEventsById, formatRange, getDefaultFormValues, sortEventsByStart } from '../../utils';
@@ -14,7 +13,7 @@ import DefaultFormInner from './DefaultFormInner';
 import SlotItem from './SlotItem';
 import style from './style.module.scss';
 
-const SchedulePanelInner = ({
+const SchedulePanel = ({
   date,
   slots,
   loading,
@@ -114,7 +113,5 @@ const SchedulePanelInner = ({
     </Card>
   );
 };
-
-const SchedulePanel = withLocale(SchedulePanelInner);
 
 export default SchedulePanel;
