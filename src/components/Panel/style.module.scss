@@ -1,0 +1,149 @@
+@use '../../styles/scrollbar.scss' as scrollbar;
+
+.panel-card {
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  background: transparent;
+}
+
+.panel-card :global(.ant-list-item) {
+  border-block-end: 0;
+  padding-block: 0;
+}
+
+.panel-card :global(.ant-card) {
+  border: 0;
+}
+
+.panel-card :global(.ant-list-items) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.panel-card :global(.ant-list),
+.panel-card :global(.ant-empty) {
+  padding: 8px 16px 18px;
+}
+
+.panel-scroll-body :global(.ant-list),
+.panel-scroll-body :global(.ant-empty) {
+  padding: 0;
+}
+
+.panel-scroll-content {
+  padding: 8px 16px 18px;
+}
+
+.panel-card > :global(.ant-card-head) {
+  flex: 0 0 auto;
+  min-height: 58px;
+  padding: 0 18px;
+  border-bottom: 0;
+  background: transparent;
+}
+
+.panel-card > :global(.ant-card-head) > :global(.ant-card-head-wrapper) > :global(.ant-card-head-title) {
+  padding: 16px 0 8px;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: clip;
+}
+
+.panel-card > :global(.ant-card-head) > :global(.ant-card-head-wrapper) {
+  align-items: flex-start;
+}
+
+.panel-card > :global(.ant-card-head) > :global(.ant-card-head-wrapper) > :global(.ant-card-head-title) > * {
+  max-width: 100%;
+}
+
+.panel-card > :global(.ant-card-body) {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: transparent;
+}
+
+.panel-spin {
+  flex: 1 1 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.panel-spin :global(.ant-spin-nested-loading),
+.panel-spin :global(.ant-spin-container),
+.panel-spin-container {
+  flex: 1 1 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.panel-scroll-body {
+  position: relative;
+  flex: 1 1 0;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  background: transparent;
+  @include scrollbar.panel-scrollbar;
+}
+
+.panel-title {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: #202124;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: normal;
+}
+
+.panel-title span + span {
+  color: #737780;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.panel-scroll-shadow {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: 10px;
+  margin-bottom: -10px;
+  flex-shrink: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.16), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.panel-scroll-shadow-visible {
+  opacity: 1;
+}
+
+.detail-card {
+  margin-top: 16px;
+  border: 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}

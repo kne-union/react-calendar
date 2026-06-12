@@ -1,0 +1,174 @@
+{
+  "isFull": false,
+  "list": [
+    {
+      "title": "基础用法",
+      "description": "view 模式最简接入：events + defaultValue",
+      "code": "./base.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "查看模式",
+      "description": "view 模式默认样式、event.onClick / onEventClick、loading、onDateChange 等 API",
+      "code": "./schedule-calendar-view.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "安排模式",
+      "description": "时间段安排、自定义表单、拖选多段、onCreate / onFreeSlotClick / onSlotRangeChange",
+      "code": "./schedule-calendar-schedule.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "_FormInfo",
+          "packageName": "@kne/form-info",
+          "importStatement": "import * as _FormInfo from \"@kne/form-info\""
+        },
+        {
+          "packageName": "@kne/form-info/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "开放与禁用规则",
+      "description": "disabledDate、availableDateTime、disabledDateTime 组合配置",
+      "code": "./schedule-calendar-rules.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "受控模式",
+      "description": "value / onChange 与 current / onCurrentChange 受控用法",
+      "code": "./schedule-calendar-controlled.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "自定义渲染",
+      "description": "renderDateCell、renderTimeSlot、renderOccupiedSlot、className、style",
+      "code": "./schedule-calendar-custom-render.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
+      "title": "工具函数",
+      "description": "groupEventsByDate 与 generateTimeSlots 独立使用示例",
+      "code": "./schedule-calendar-utils.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    }
+  ]
+}
