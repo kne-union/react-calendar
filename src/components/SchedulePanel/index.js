@@ -34,7 +34,7 @@ const SchedulePanel = ({
   const { formatMessage } = useIntl();
   const events = useMemo(() => sortEventsByStart(dedupeEventsById(slots.flatMap(slot => slot.events || []))), [slots]);
   const panelHeader = renderPanelHeader?.({ date: date.toDate(), mode: 'schedule', events });
-  const { activePopoverKey, dragging, formPopoverKey, selectedAnchorKey, selectedKeys, selectSlots, slotsRef, finishSelection, handleMouseDown, handleMouseEnter, handlePopoverOpenChange } = useScheduleSelectionGesture({
+  const { activePopoverKey, dragging, formPopoverKey, selectedAnchorKey, selectedKeys, selectSlots, slotsRef, handleMouseDown, handleMouseEnter, handleMouseUp, handleMouseLeave, handlePopoverOpenChange } = useScheduleSelectionGesture({
     slots,
     selectedSlots,
     setSelectedSlots,
@@ -76,7 +76,7 @@ const SchedulePanel = ({
   return (
     <Card bordered={false} title={panelHeader || <PanelTitle date={date} subtitle={formatMessage({ id: 'SchedulePanel.selectFreeSlot' })} />} className={panelStyle['panel-card']}>
       <Spin spinning={!!loading} classNames={{ root: panelStyle['panel-spin'], container: panelStyle['panel-spin-container'] }}>
-        <div ref={slotsRef} className={classNames(style['slots'], { [style['slots-dragging']]: dragging })} onScroll={onScroll} onMouseUp={() => finishSelection()} onMouseLeave={() => finishSelection()}>
+        <div ref={slotsRef} className={classNames(style['slots'], { [style['slots-dragging']]: dragging })} onScroll={onScroll} onMouseUp={handleMouseUp} onMouseLeave={handleMouseLeave}>
           <PanelScrollShadow visible={scrolled} />
           <div className={style['slots-content']}>
             {slots.map((slot, index) => {
@@ -102,7 +102,7 @@ const SchedulePanel = ({
                   }}
                   onMouseDown={event => handleMouseDown(event, slot, index)}
                   onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseUp={() => finishSelection()}
+                  onMouseUp={handleMouseUp}
                   onClick={undefined}
                 />
               );
