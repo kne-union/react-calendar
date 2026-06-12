@@ -1,8 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Typography } = antd;
+const { Flex, Select, Typography } = antd;
+const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -48,13 +54,18 @@ const lunchDisabled = ({ slot }) => {
   return false;
 };
 
-const RulesExample = () => (
-  <Flex vertical gap={12}>
-    <Text type="secondary">
-      规则 API：`disabledDate`（禁用 6/10 前日期）、`availableDateTime`（仅工作日 9:00-18:00）、`disabledDateTime`（12:00 午休禁用并展示 reason）。
-    </Text>
-    <ScheduleCalendar
-      mode="schedule"
+const RulesExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
+
+  return (
+    <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+      <Text type="secondary">
+        规则 API：`disabledDate`（禁用 6/10 前日期）、`availableDateTime`（仅工作日 9:00-18:00）、`disabledDateTime`（12:00 午休禁用并展示 reason）。
+      </Text>
+      <ScheduleCalendar
+        locale={locale}
+        mode="schedule"
       defaultValue="2026-06-11"
       events={interviewEvents}
       timeUnit={30}
@@ -71,8 +82,9 @@ const RulesExample = () => (
           </Text>
         </Flex>
       )}
-    />
-  </Flex>
-);
+      />
+    </Flex>
+  );
+};
 
 render(<RulesExample />);

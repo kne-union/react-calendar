@@ -19,7 +19,19 @@ const locale = {
   'DefaultFormInner.title': 'Title',
   'DefaultFormInner.titlePlaceholder': 'Enter event title',
   'DefaultFormInner.detail': 'Details',
-  'DefaultFormInner.detailPlaceholder': 'Enter event details'
+  'DefaultFormInner.detailPlaceholder': 'Enter event details',
+  'Calendar.month.1': 'Jan',
+  'Calendar.month.2': 'Feb',
+  'Calendar.month.3': 'Mar',
+  'Calendar.month.4': 'Apr',
+  'Calendar.month.5': 'May',
+  'Calendar.month.6': 'Jun',
+  'Calendar.month.7': 'Jul',
+  'Calendar.month.8': 'Aug',
+  'Calendar.month.9': 'Sep',
+  'Calendar.month.10': 'Oct',
+  'Calendar.month.11': 'Nov',
+  'Calendar.month.12': 'Dec'
 };
 
 export default locale;

@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { Card, Empty, List, Spin } from 'antd';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { DATE_FORMAT } from '../../constants';
 import { sortEventsByStart } from '../../utils';
 import EventItem from '../EventItem';
@@ -10,7 +9,7 @@ import PanelScrollShadow from './PanelScrollShadow';
 import usePanelScrollShadow from './usePanelScrollShadow';
 import style from './style.module.scss';
 
-const ViewPanelInner = ({ date, events, loading, renderEventItem, renderPanelHeader, onEventClick }) => {
+const ViewPanel = ({ date, events, loading, renderEventItem, renderPanelHeader, onEventClick }) => {
   const { formatMessage } = useIntl();
   const sortedEvents = useMemo(() => sortEventsByStart(events), [events]);
   const panelHeader = renderPanelHeader?.({ date: date.toDate(), mode: 'view', events: sortedEvents });
@@ -33,7 +32,5 @@ const ViewPanelInner = ({ date, events, loading, renderEventItem, renderPanelHea
     </Card>
   );
 };
-
-const ViewPanel = withLocale(ViewPanelInner);
 
 export default ViewPanel;

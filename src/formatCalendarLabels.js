@@ -3,37 +3,39 @@ import { toDayjs } from './utils';
 
 const toDay = value => toDayjs(value) || dayjs();
 
+export const getMonthName = (formatMessage, monthIndex) => formatMessage({ id: `Calendar.month.${monthIndex + 1}` });
+
 export const getPanelDateLabel = (formatMessage, date) => {
   const d = toDay(date);
+  const monthIndex = d.month();
   return formatMessage(
     { id: 'PanelTitle.dateLabel' },
     {
       year: d.year(),
-      month: d.month() + 1,
+      month: monthIndex + 1,
       day: d.date(),
-      monthName: d.format('MMM')
+      monthName: getMonthName(formatMessage, monthIndex)
     }
   );
 };
 
 export const getHeaderMonthLabel = (formatMessage, date) => {
   const d = toDay(date);
+  const monthIndex = d.month();
   return formatMessage(
     { id: 'Header.monthLabel' },
     {
-      month: d.month() + 1,
-      monthName: d.format('MMM')
+      month: monthIndex + 1,
+      monthName: getMonthName(formatMessage, monthIndex)
     }
   );
 };
 
-export const getMonthPickerItemLabel = (formatMessage, value, monthIndex) => {
-  const monthDate = toDay(value).month(monthIndex);
-  return formatMessage(
+export const getMonthPickerItemLabel = (formatMessage, value, monthIndex) =>
+  formatMessage(
     { id: 'Header.monthPickerItem' },
     {
       month: monthIndex + 1,
-      monthName: monthDate.format('MMM')
+      monthName: getMonthName(formatMessage, monthIndex)
     }
   );
-};

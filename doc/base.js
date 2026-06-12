@@ -1,8 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Typography, message } = antd;
+const { Flex, Select, Typography, message } = antd;
+const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -37,11 +43,16 @@ const interviewEvents = [
   }
 ];
 
-const BaseExample = () => (
-  <Flex vertical gap={8}>
-    <Text type="secondary">最基础用法：`mode="view"` + `events` + `defaultValue`。日程项可配置 `onClick` 响应点击。</Text>
-    <ScheduleCalendar mode="view" defaultValue="2026-06-11" defaultCurrent="2026-06-01" events={interviewEvents} />
-  </Flex>
-);
+const BaseExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
+
+  return (
+    <Flex vertical gap={8}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+      <Text type="secondary">最基础用法：`mode="view"` + `events` + `defaultValue`。日程项可配置 `onClick` 响应点击。</Text>
+      <ScheduleCalendar locale={locale} mode="view" defaultValue="2026-06-11" defaultCurrent="2026-06-01" events={interviewEvents} />
+    </Flex>
+  );
+};
 
 render(<BaseExample />);

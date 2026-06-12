@@ -1,9 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar, groupEventsByDate, generateTimeSlots } = _ReactCalendar;
-const { Flex, Typography } = antd;
+const { Flex, Select, Typography } = antd;
 const { useMemo, useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -27,6 +32,7 @@ const interviewEvents = [
 ];
 
 const UtilsExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
 
   const grouped = useMemo(() => groupEventsByDate(interviewEvents), []);
@@ -48,10 +54,12 @@ const UtilsExample = () => {
 
   return (
     <Flex vertical gap={12}>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Text type="secondary">
         工具函数：`groupEventsByDate` 按天聚合日程，`generateTimeSlots` 生成时间段及 `free/occupied/disabled` 状态。下方组件切换日期时同步更新统计。
       </Text>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         value={selectedDate}
         onChange={date => setSelectedDate(dayjs(date).format('YYYY-MM-DD'))}

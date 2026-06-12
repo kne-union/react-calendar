@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { classNames } from '../../utils';
 import HeaderNavIcon from './NavIcon';
 import { YEAR_PAGE_SIZE } from './constants';
@@ -12,7 +11,7 @@ const PickerPanelNav = ({ label, onClick, children }) => (
   </button>
 );
 
-const YearPickerPanelInner = ({ value, pageStart, onPageStartChange, onSelect }) => {
+const YearPickerPanel = ({ value, pageStart, onPageStartChange, onSelect }) => {
   const { formatMessage } = useIntl();
   const years = useMemo(() => Array.from({ length: YEAR_PAGE_SIZE }, (_, index) => pageStart + index), [pageStart]);
   return (
@@ -38,7 +37,5 @@ const YearPickerPanelInner = ({ value, pageStart, onPageStartChange, onSelect })
     </div>
   );
 };
-
-const YearPickerPanel = withLocale(YearPickerPanelInner);
 
 export default YearPickerPanel;

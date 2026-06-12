@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Button, Popover, Space } from 'antd';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { getHeaderMonthLabel } from '../../formatCalendarLabels';
 import { toDayjs } from '../../utils';
 import HeaderNavIcon from './NavIcon';
@@ -17,7 +16,7 @@ const HeaderNavButton = ({ label, onClick, children }) => (
   </button>
 );
 
-const HeaderInner = ({ current, showTodayButton, onCurrentChange, onSelectToday }) => {
+const Header = ({ current, showTodayButton, onCurrentChange, onSelectToday }) => {
   const { formatMessage } = useIntl();
   const date = toDayjs(current) || dayjs();
   const [yearOpen, setYearOpen] = useState(false);
@@ -97,7 +96,5 @@ const HeaderInner = ({ current, showTodayButton, onCurrentChange, onSelectToday 
     </div>
   );
 };
-
-const Header = withLocale(HeaderInner);
 
 export default Header;

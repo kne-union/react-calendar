@@ -50,6 +50,7 @@ export type SlotRangeChangeInfo = {
 
 export type ScheduleCalendarProps = {
   mode?: CalendarMode;
+  locale?: 'zh-CN' | 'en-US' | string;
   value?: DateLike;
   defaultValue?: DateLike;
   onChange?: (date: Date, info: ScheduleChangeInfo) => void;

@@ -5,9 +5,9 @@ const locale = {
   'Header.prevYearPage': '上一组年份',
   'Header.nextYearPage': '下一组年份',
   'Header.yearLabel': '{year}年',
-  'Header.monthLabel': '{month}月',
-  'Header.monthPickerItem': '{month}月',
-  'PanelTitle.dateLabel': '{year}年{month}月{day}日',
+  'Header.monthLabel': '{monthName}',
+  'Header.monthPickerItem': '{monthName}',
+  'PanelTitle.dateLabel': '{year}年{monthName}{day}日',
   'PanelTitle.eventCount': '共 {count} 个日程',
   'ViewPanel.empty': '暂无日程',
   'SchedulePanel.selectFreeSlot': '选择空闲时间段',
@@ -19,7 +19,19 @@ const locale = {
   'DefaultFormInner.title': '标题',
   'DefaultFormInner.titlePlaceholder': '请输入日程标题',
   'DefaultFormInner.detail': '详情',
-  'DefaultFormInner.detailPlaceholder': '请输入日程详情'
+  'DefaultFormInner.detailPlaceholder': '请输入日程详情',
+  'Calendar.month.1': '1月',
+  'Calendar.month.2': '2月',
+  'Calendar.month.3': '3月',
+  'Calendar.month.4': '4月',
+  'Calendar.month.5': '5月',
+  'Calendar.month.6': '6月',
+  'Calendar.month.7': '7月',
+  'Calendar.month.8': '8月',
+  'Calendar.month.9': '9月',
+  'Calendar.month.10': '10月',
+  'Calendar.month.11': '11月',
+  'Calendar.month.12': '12月'
 };
 
 export default locale;

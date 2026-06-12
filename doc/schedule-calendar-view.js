@@ -1,9 +1,14 @@
 /* global _ReactCalendar, antd, React, dayjs, render */
 
 const { default: ScheduleCalendar } = _ReactCalendar;
-const { Flex, Space, Switch, Typography, message } = antd;
+const { Flex, Select, Space, Switch, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
+
+const localeOptions = [
+  { value: 'zh-CN', label: '中文' },
+  { value: 'en-US', label: 'English' }
+];
 
 const interviewEvents = [
   {
@@ -57,6 +62,7 @@ const interviewEvents = [
 ];
 
 const ViewExample = () => {
+  const [locale, setLocale] = useState('zh-CN');
   const [loading, setLoading] = useState(false);
   const [lastChange, setLastChange] = useState('-');
 
@@ -65,6 +71,7 @@ const ViewExample = () => {
       <Text type="secondary">
         单条日程可通过 `event.onClick` 响应点击；未配置时由 `onEventClick` 统一处理（见 iv-1004、iv-1005）。
       </Text>
+      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
       <Space wrap>
         <Switch checked={loading} onChange={setLoading} checkedChildren="loading" unCheckedChildren="idle" />
         <Text type="secondary" style={{ fontSize: 12 }}>
@@ -72,6 +79,7 @@ const ViewExample = () => {
         </Text>
       </Space>
       <ScheduleCalendar
+        locale={locale}
         mode="view"
         defaultValue="2026-06-11"
         defaultCurrent="2026-06-01"

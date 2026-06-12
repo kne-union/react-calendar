@@ -1,11 +1,10 @@
 import { Popover, Tag, Tooltip } from 'antd';
 import { useIntl } from '@kne/react-intl';
-import withLocale from '../../withLocale';
 import { classNames, formatRange } from '../../utils';
 import SlotEvents from './SlotEvents';
 import style from './style.module.scss';
 
-const SlotItemInner = ({ slot, date, selected, formPopover, popoverOpen, onPopoverOpenChange, onContextMenu, onMouseDown, onPointerDown, onMouseEnter, onMouseUp, onClick, onEventClick, renderTimeSlot, renderOccupiedSlot }) => {
+const SlotItem = ({ slot, date, selected, formPopover, popoverOpen, onPopoverOpenChange, onContextMenu, onMouseDown, onPointerDown, onMouseEnter, onMouseUp, onClick, onEventClick, renderTimeSlot, renderOccupiedSlot }) => {
   const { formatMessage } = useIntl();
   const content = renderTimeSlot?.(slot, { selected });
   if (content) {
@@ -83,7 +82,5 @@ const SlotItemInner = ({ slot, date, selected, formPopover, popoverOpen, onPopov
 
   return wrapWithPopover(inner);
 };
-
-const SlotItem = withLocale(SlotItemInner);
 
 export default SlotItem;
