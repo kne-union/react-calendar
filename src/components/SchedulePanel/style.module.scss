@@ -10,7 +10,9 @@
   overflow: auto;
   padding: 0;
   background: transparent;
+  scrollbar-gutter: stable;
   touch-action: pan-y;
+  -webkit-touch-callout: none;
   @include scrollbar.panel-scrollbar;
 }
 
@@ -19,17 +21,26 @@
   flex-direction: column;
   gap: 7px;
   padding: 8px 16px 18px;
+
+  :global([data-slot-index]) {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
 }
 
 .slots-dragging {
   touch-action: none;
+  overscroll-behavior: none;
   user-select: none;
 }
 
 :global(.schedule-calendar-touch-dragging) {
   touch-action: none !important;
-  overscroll-behavior: contain;
+  overscroll-behavior: none;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 :global(.schedule-calendar-touch-dragging) .slot-item {
@@ -49,6 +60,9 @@
   padding: 7px 10px;
   text-align: left;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
   transition:
     border-color 0.18s ease,

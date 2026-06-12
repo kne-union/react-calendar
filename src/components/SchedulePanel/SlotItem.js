@@ -9,7 +9,7 @@ const SlotItem = ({ slot, date, selected, formPopover, popoverOpen, onPopoverOpe
   const content = renderTimeSlot?.(slot, { selected });
   if (content) {
     const customNode = (
-      <div data-slot-index={slot.index} onContextMenu={onContextMenu} onMouseDown={onMouseDown} onPointerDown={onPointerDown} onMouseEnter={onMouseEnter} onMouseUp={onMouseUp} onClick={onClick}>
+      <div data-slot-index={slot.index} data-slot-status={slot.status} onContextMenu={onContextMenu} onMouseDown={onMouseDown} onPointerDown={onPointerDown} onMouseEnter={onMouseEnter} onMouseUp={onMouseUp} onClick={onClick}>
         {content}
       </div>
     );
@@ -52,21 +52,11 @@ const SlotItem = ({ slot, date, selected, formPopover, popoverOpen, onPopoverOpe
     return node;
   };
 
-  const inner = (
-    <button
-      type="button"
-      className={classNames(style['slot-item'], style[`slot-${slot.status}`], {
-        [style['slot-selected']]: selected
-      })}
-      data-slot-index={slot.index}
-      disabled={slot.status === 'disabled'}
-      onContextMenu={onContextMenu}
-      onMouseDown={onMouseDown}
-      onPointerDown={onPointerDown}
-      onMouseEnter={onMouseEnter}
-      onMouseUp={onMouseUp}
-      onClick={onClick}
-    >
+  const slotClassName = classNames(style['slot-item'], style[`slot-${slot.status}`], {
+    [style['slot-selected']]: selected
+  });
+  const slotChildren = (
+    <>
       <span className={style['slot-dot']} />
       <span className={style['slot-time']}>{formatRange(slot.start, slot.end)}</span>
       {slot.status === 'disabled' ? <Tag className={style['slot-tag']}>{formatMessage({ id: 'SlotItem.disabled' })}</Tag> : null}
@@ -77,8 +67,39 @@ const SlotItem = ({ slot, date, selected, formPopover, popoverOpen, onPopoverOpe
       ) : null}
       {slot.status === 'occupied' && renderOccupiedSlot ? renderOccupiedSlot(slot, { events: slot.events }) : null}
       {slot.status === 'occupied' && !renderOccupiedSlot ? <span className={style['slot-title']}>{slot.events.map(event => event.title).join('、')}</span> : null}
-    </button>
+    </>
   );
+  const slotHandlers = {
+    onContextMenu,
+    onMouseDown,
+    onPointerDown,
+    onMouseEnter,
+    onMouseUp,
+    onClick
+  };
+
+  const inner =
+    slot.status === 'disabled' ? (
+      <button
+        type="button"
+        className={slotClassName}
+        data-slot-index={slot.index}
+        data-slot-status={slot.status}
+        disabled
+        onContextMenu={onContextMenu}
+        onMouseDown={onMouseDown}
+        onPointerDown={onPointerDown}
+        onMouseEnter={onMouseEnter}
+        onMouseUp={onMouseUp}
+        onClick={onClick}
+      >
+        {slotChildren}
+      </button>
+    ) : (
+      <div role="button" tabIndex={0} className={slotClassName} data-slot-index={slot.index} data-slot-status={slot.status} {...slotHandlers}>
+        {slotChildren}
+      </div>
+    );
 
   return wrapWithPopover(inner);
 };
