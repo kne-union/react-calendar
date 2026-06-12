@@ -20,6 +20,7 @@
   border: 1px solid var(--schedule-calendar-border);
   border-radius: var(--schedule-calendar-radius);
   background: var(--schedule-calendar-surface);
+  box-sizing: border-box;
 }
 
 .calendar-side {
