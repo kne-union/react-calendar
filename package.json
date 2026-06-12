@@ -1,6 +1,6 @@
 {
   "name": "@kne/react-calendar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "实现一个日程的组件",
   "syntax": {
     "esmodules": true
