@@ -52,6 +52,25 @@
   overflow: hidden;
 }
 
+.schedule-calendar-event-list-expanded {
+  max-height: none;
+  overflow: visible;
+}
+
+.schedule-calendar-event-list-expanded .panel-side {
+  position: relative;
+  top: auto;
+  right: auto;
+  flex: 0 0 50%;
+  height: auto;
+  overflow: visible;
+}
+
+.schedule-calendar-event-list-expanded .panel-side > * {
+  height: auto;
+  overflow: visible;
+}
+
 .schedule-calendar-stacked {
   flex-direction: column;
   min-height: 0;
@@ -73,6 +92,13 @@
   height: var(--schedule-panel-height, 560px);
   border-bottom-left-radius: var(--schedule-calendar-radius);
   border-bottom-right-radius: var(--schedule-calendar-radius);
+}
+
+.schedule-calendar-stacked.schedule-calendar-event-list-expanded .panel-side {
+  top: auto;
+  left: auto;
+  flex: none;
+  height: auto;
 }
 
 .schedule-calendar :global(.ant-picker-calendar) {
