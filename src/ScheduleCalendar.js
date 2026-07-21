@@ -68,13 +68,15 @@ const ScheduleCalendarInner = props => {
     className,
     style: propsStyle,
     stackAt = LAYOUT_STACK_BREAKPOINT,
+    eventListScrollable = true,
     calendarProps,
     panelProps
   } = props;
   const rootRef = useRef(null);
   const calendarRef = useRef(null);
   const stacked = useStackedLayout(rootRef, stackAt);
-  const stackedLayoutStyle = useStackedPanelLayout(rootRef, calendarRef, stacked);
+  const eventListExpanded = mode === 'view' && !eventListScrollable;
+  const stackedLayoutStyle = useStackedPanelLayout(rootRef, calendarRef, stacked && !eventListExpanded);
   const [value, setValue] = useControlValue(props);
   const selectedDate = useMemo(() => toDayjs(value) || dayjs(), [value]);
   const [current, setCurrent] = useControlledState({
@@ -161,7 +163,12 @@ const ScheduleCalendarInner = props => {
 
   return (
     <div className={style['schedule-calendar-shell']} style={propsStyle}>
-      <div ref={rootRef} className={classNames(style['schedule-calendar'], stacked && style['schedule-calendar-stacked'], className)} data-schedule-layout={stacked ? 'stacked' : 'row'} style={stacked ? stackedLayoutStyle : undefined}>
+      <div
+        ref={rootRef}
+        className={classNames(style['schedule-calendar'], stacked && style['schedule-calendar-stacked'], eventListExpanded && style['schedule-calendar-event-list-expanded'], className)}
+        data-schedule-layout={stacked ? 'stacked' : 'row'}
+        style={stacked && !eventListExpanded ? stackedLayoutStyle : undefined}
+      >
         <div ref={calendarRef} className={style['calendar-side']}>
           <Calendar
             {...calendarProps}
@@ -204,7 +211,7 @@ const ScheduleCalendarInner = props => {
               onEventClick={onEventClick}
             />
           ) : (
-            <ViewPanel date={selectedDate} events={selectedEvents} loading={loading} renderEventItem={renderEventItem} renderPanelHeader={renderPanelHeader} onEventClick={onEventClick} />
+            <ViewPanel date={selectedDate} events={selectedEvents} loading={loading} renderEventItem={renderEventItem} renderPanelHeader={renderPanelHeader} onEventClick={onEventClick} scrollable={eventListScrollable} />
           )}
         </div>
       </div>

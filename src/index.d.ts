@@ -83,6 +83,7 @@ export type ScheduleCalendarProps = {
   className?: string;
   style?: CSSProperties;
   stackAt?: number;
+  eventListScrollable?: boolean;
   calendarProps?: Record<string, unknown>;
   panelProps?: Record<string, unknown>;
 };

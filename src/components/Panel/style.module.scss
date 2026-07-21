@@ -110,6 +110,22 @@
   @include scrollbar.panel-scrollbar;
 }
 
+.panel-card-expanded {
+  flex: none;
+  overflow: visible;
+}
+
+.panel-card-expanded > :global(.ant-card-body),
+.panel-card-expanded .panel-spin,
+.panel-card-expanded .panel-spin :global(.ant-spin-nested-loading),
+.panel-card-expanded .panel-spin :global(.ant-spin-container),
+.panel-card-expanded .panel-spin-container,
+.panel-scroll-body-expanded {
+  flex: none;
+  height: auto;
+  overflow: visible;
+}
+
 .panel-title {
   display: flex;
   flex-direction: column;
