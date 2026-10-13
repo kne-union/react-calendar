@@ -2,7 +2,7 @@
 
 const { default: ScheduleCalendar } = _ReactCalendar;
 const { default: FormInfo, Input, TextArea, Select: FormSelect } = _FormInfo;
-const { Flex, Select, Space, Typography, message } = antd;
+const { Flex, Select, Switch, Typography, message } = antd;
 const { useState } = React;
 const { Text } = Typography;
 
@@ -62,21 +62,20 @@ const ScheduleExample = () => {
   const [events, setEvents] = useState(interviewEvents);
   const [selectedDate, setSelectedDate] = useState('2026-06-11');
   const [actionLog, setActionLog] = useState([]);
+  const [allowConflict, setAllowConflict] = useState(false);
 
   const appendLog = (label, payload) => {
     setActionLog(log => [`${label}: ${JSON.stringify(payload)}`, ...log].slice(0, 4));
   };
 
   const handleCreate = async (values, context) => {
-    const firstSlot = context.slots[0];
-    const lastSlot = context.slots[context.slots.length - 1];
     setEvents(list =>
       list.concat({
         id: `iv-${Date.now()}`,
         title: values.title,
         detail: `${values.detail || ''}${values.interviewer ? ` · 面试官：${values.interviewer}` : ''}`.trim(),
-        start: firstSlot.start,
-        end: lastSlot.end
+        start: context.start,
+        end: context.end
       })
     );
     message.success(`已创建：${values.title}`);
@@ -84,9 +83,17 @@ const ScheduleExample = () => {
 
   return (
     <Flex vertical gap={12}>
-      <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+      <Flex gap={16} align="center" wrap>
+        <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
+        <Flex gap={8} align="center">
+          <Switch size="small" checked={allowConflict} onChange={setAllowConflict} />
+          <Text>allowConflict</Text>
+        </Flex>
+      </Flex>
       <Text type="secondary">
-        安排模式 API：`timeUnit`、`dayStart`、`dayEnd`、`allowMultiSelect`、`formInner`、`formProps`、`defaultFormValues`、`onCreate`、`onFreeSlotClick`、`onSlotRangeChange`。
+        安排模式
+        API：`timeUnit`、`timeStep`、`dayStart`、`dayEnd`、`allowConflict`、`allowMultiSelect`、`formInner`、`formProps`、`defaultFormValues`、`onCreate`、`onFreeSlotClick`、`onSlotRangeChange`。时间轴上点击或拖拽空白处选择时间，拖动选中块可平移，拖动上下边缘可调整时长；表单顶部的
+        TimeWindow 打开开关后可按分钟精调。
       </Text>
       <ScheduleCalendar
         locale={locale}
@@ -98,16 +105,18 @@ const ScheduleExample = () => {
         }}
         events={events}
         timeUnit={30}
+        timeStep={5}
         dayStart="09:00"
         dayEnd="18:00"
+        allowConflict={allowConflict}
         allowMultiSelect
         formInner={formInner}
         formProps={{ size: 'small' }}
-        defaultFormValues={({ date, slots }) => ({
+        defaultFormValues={({ start, end, conflicts }) => ({
           title: '',
           interviewType: 'video',
           interviewer: '',
-          detail: slots.length > 1 ? `连续选择 ${slots.length} 个时段` : `日期 ${dayjs(date).format('YYYY-MM-DD')}`
+          detail: `${dayjs(start).format('YYYY-MM-DD HH:mm')} - ${dayjs(end).format('HH:mm')}${conflicts.length ? `（与 ${conflicts.length} 个日程重叠）` : ''}`
         })}
         onFreeSlotClick={slot =>
           appendLog('onFreeSlotClick', {
@@ -117,6 +126,7 @@ const ScheduleExample = () => {
         onSlotRangeChange={(slots, info) =>
           appendLog('onSlotRangeChange', {
             action: info.action,
+            range: info.start ? `${dayjs(info.start).format('HH:mm')}-${dayjs(info.end).format('HH:mm')}` : null,
             count: slots.length
           })
         }
@@ -125,7 +135,7 @@ const ScheduleExample = () => {
           <Flex vertical gap={2}>
             <Text strong>{dayjs(date).format('M月D日')} 可预约时段</Text>
             <Text type="secondary" style={{ fontSize: 12 }}>
-              点击或拖选空闲段后填写表单创建面试
+              点击或拖拽时间轴空白处，再填写表单创建面试
             </Text>
           </Flex>
         )}

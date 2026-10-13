@@ -46,6 +46,16 @@ export type CurrentChangeInfo = {
 
 export type SlotRangeChangeInfo = {
   action: 'select' | 'clear';
+  start?: Date;
+  end?: Date;
+};
+
+export type ScheduleSelectionContext = {
+  date: Date;
+  start: Date | null;
+  end: Date | null;
+  slots: TimeSlot[];
+  conflicts: CalendarEvent[];
 };
 
 export type ScheduleCalendarProps = {
@@ -68,18 +78,21 @@ export type ScheduleCalendarProps = {
   timeUnit?: number;
   dayStart?: string;
   dayEnd?: string;
+  timeStep?: number;
+  hourHeight?: number;
+  allowConflict?: boolean;
   allowMultiSelect?: boolean;
   renderEventItem?: (event: CalendarEvent, ctx: { date: Date; mode: CalendarMode; onEventClick?: ScheduleCalendarProps['onEventClick'] }) => ReactNode;
   renderDateCell?: (date: Date, ctx: { events: CalendarEvent[]; selected: boolean; currentMonth: boolean }) => ReactNode;
-  renderTimeSlot?: (slot: TimeSlot, ctx: { selected: boolean }) => ReactNode;
+  renderEventBlock?: (event: CalendarEvent, ctx: { start: Date; end: Date }) => ReactNode;
   renderOccupiedSlot?: (slot: TimeSlot, ctx: { events: CalendarEvent[] }) => ReactNode;
   renderPanelHeader?: (ctx: { date: Date; mode: CalendarMode; events: CalendarEvent[] }) => ReactNode;
   formInner?: ReactNode;
   formProps?: Record<string, unknown>;
-  defaultFormValues?: Record<string, unknown> | ((ctx: { date: Date; slots: TimeSlot[] }) => Record<string, unknown>);
-  onFreeSlotClick?: (slot: TimeSlot) => void;
+  defaultFormValues?: Record<string, unknown> | ((ctx: ScheduleSelectionContext) => Record<string, unknown>);
+  onFreeSlotClick?: (slot: Pick<TimeSlot, 'key' | 'date' | 'start' | 'end' | 'status' | 'events'>) => void;
   onSlotRangeChange?: (slots: TimeSlot[], info: SlotRangeChangeInfo) => void;
-  onCreate?: (values: Record<string, unknown>, ctx: { date: Date; slots: TimeSlot[] }) => void | Promise<void>;
+  onCreate?: (values: Record<string, unknown>, ctx: ScheduleSelectionContext) => void | Promise<void>;
   className?: string;
   style?: CSSProperties;
   stackAt?: number;
@@ -100,8 +113,38 @@ export type GenerateTimeSlotsOptions = {
   mode?: CalendarMode;
 };
 
+export type TimeWindowFormat = string | [string, string] | ((start: Date, end: Date) => ReactNode);
+
+export type TimeWindowProps = {
+  value?: [DateLike, DateLike];
+  defaultValue?: [DateLike, DateLike];
+  onChange?: (value: [Date, Date]) => void;
+  duration?: number;
+  range?: [DateLike | null, DateLike | null] | null;
+  step?: number;
+  visibleSpan?: number;
+  size?: 'large' | 'default' | 'small';
+  inertia?: boolean | number;
+  resizable?: boolean;
+  wheelEffect?: boolean;
+  lockable?: boolean;
+  locked?: boolean;
+  defaultLocked?: boolean;
+  onLockedChange?: (locked: boolean) => void;
+  minDuration?: number;
+  maxDuration?: number;
+  debounceWait?: number;
+  format?: TimeWindowFormat;
+  separator?: ReactNode;
+  showDuration?: boolean;
+  locale?: 'zh-CN' | 'en-US' | string;
+  className?: string;
+  style?: CSSProperties;
+};
+
 export declare const ScheduleCalendar: FC<ScheduleCalendarProps>;
 export declare const ReactCalendar: FC<ScheduleCalendarProps>;
+export declare const TimeWindow: FC<TimeWindowProps>;
 
 export declare function groupEventsByDate(events: CalendarEvent[]): Record<string, CalendarEvent[]>;
 export declare function generateTimeSlots(options: GenerateTimeSlotsOptions): TimeSlot[];

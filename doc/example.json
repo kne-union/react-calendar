@@ -148,6 +148,29 @@
       ]
     },
     {
+      "title": "时间段选择",
+      "description": "固定时长窗口、自定义范围、format、separator，以及防抖后的 onChange",
+      "code": "./time-window.js",
+      "scope": [
+        {
+          "name": "_ReactCalendar",
+          "packageName": "@kne/current-lib_react-calendar",
+          "importStatement": "import * as _ReactCalendar from \"@kne/react-calendar\""
+        },
+        {
+          "packageName": "@kne/current-lib_react-calendar/dist/index.css"
+        },
+        {
+          "name": "antd",
+          "packageName": "antd"
+        },
+        {
+          "name": "dayjs",
+          "packageName": "dayjs"
+        }
+      ]
+    },
+    {
       "title": "工具函数",
       "description": "groupEventsByDate 与 generateTimeSlots 独立使用示例",
       "code": "./schedule-calendar-utils.js",
