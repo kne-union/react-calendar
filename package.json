@@ -1,6 +1,6 @@
 {
   "name": "@kne/react-calendar",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "实现一个日程的组件",
   "syntax": {
     "esmodules": true
@@ -106,7 +106,7 @@
   "dependencies": {
     "@kne/form-info": "^0.1.9",
     "@kne/react-intl": "^0.1.9",
+    "@kne/responsive-utils": "^0.1.16",
     "@kne/use-control-value": "^0.1.9"
   }
 }
-

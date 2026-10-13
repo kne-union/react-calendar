@@ -1,4 +1,7 @@
+@use '~@kne/responsive-utils/scss' as resp;
+
 .schedule-calendar-shell {
+  @include resp.responsive-container;
   width: 100%;
   border-radius: var(--schedule-calendar-radius, 16px);
   box-shadow: var(--schedule-calendar-shadow, 0 18px 48px rgba(15, 23, 42, 0.08));
@@ -23,8 +26,8 @@
 }
 
 .calendar-side {
-  flex: 0 0 50%;
-  width: 50%;
+  flex: 0 0 var(--schedule-calendar-side-width, 50%);
+  width: var(--schedule-calendar-side-width, 50%);
   min-width: 0;
   padding: 18px 22px 22px;
   box-sizing: border-box;
@@ -35,7 +38,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%;
+  left: var(--schedule-calendar-side-width, 50%);
   height: 100%;
   min-width: 0;
   min-height: 0;
@@ -61,7 +64,8 @@
   position: relative;
   top: auto;
   right: auto;
-  flex: 0 0 50%;
+  left: auto;
+  flex: 1 1 0;
   height: auto;
   overflow: visible;
 }

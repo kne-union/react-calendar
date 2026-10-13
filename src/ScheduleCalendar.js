@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import useControlValue from '@kne/use-control-value';
@@ -51,10 +51,13 @@ const ScheduleCalendarInner = props => {
     timeUnit = 30,
     dayStart = '09:00',
     dayEnd = '18:00',
+    timeStep = 5,
+    hourHeight = 56,
+    allowConflict = false,
     allowMultiSelect = mode === 'schedule',
     renderDateCell,
     renderEventItem,
-    renderTimeSlot,
+    renderEventBlock,
     renderOccupiedSlot,
     renderPanelHeader,
     formInner,
@@ -85,7 +88,6 @@ const ScheduleCalendarInner = props => {
     onChange: props.onCurrentChange
   });
   const currentDate = useMemo(() => toDayjs(current) || selectedDate, [current, selectedDate]);
-  const [selectedSlots, setSelectedSlots] = useState([]);
   const eventGroup = useMemo(() => groupEventsByDate(events), [events]);
   const selectedEvents = useMemo(() => eventGroup[selectedDate.format(DATE_FORMAT)] || [], [eventGroup, selectedDate]);
   const ruleContext = useMemo(
@@ -138,7 +140,6 @@ const ScheduleCalendarInner = props => {
     const nextDate = date.startOf('day').toDate();
     setValue(nextDate, info);
     onDateChange?.(nextDate, info);
-    setSelectedSlots([]);
   };
 
   const handleCurrentChange = (date, info) => {
@@ -193,19 +194,25 @@ const ScheduleCalendarInner = props => {
         <div className={style['panel-side']} {...panelProps}>
           {mode === 'schedule' ? (
             <SchedulePanel
+              key={selectedDate.format(DATE_FORMAT)}
               date={selectedDate}
               slots={slots}
+              events={selectedEvents}
+              dayStart={dayStart}
+              dayEnd={dayEnd}
+              timeUnit={timeUnit}
+              timeStep={timeStep}
+              hourHeight={hourHeight}
+              allowConflict={allowConflict}
               loading={loading}
               allowMultiSelect={allowMultiSelect}
-              selectedSlots={selectedSlots}
-              setSelectedSlots={setSelectedSlots}
               onSlotRangeChange={onSlotRangeChange}
               onFreeSlotClick={onFreeSlotClick}
               onCreate={onCreate}
               formInner={formInner}
               formProps={formProps}
               defaultFormValues={defaultFormValues}
-              renderTimeSlot={renderTimeSlot}
+              renderEventBlock={renderEventBlock}
               renderOccupiedSlot={renderOccupiedSlot}
               renderPanelHeader={renderPanelHeader}
               onEventClick={onEventClick}

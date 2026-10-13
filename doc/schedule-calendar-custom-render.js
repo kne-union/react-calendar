@@ -38,9 +38,7 @@ const CustomRenderExample = () => {
   return (
     <Flex vertical gap={12}>
       <Select value={locale} onChange={setLocale} style={{ width: 120 }} options={localeOptions} />
-      <Text type="secondary">
-        自定义渲染 API：`renderDateCell`、`renderTimeSlot`、`renderOccupiedSlot`、`renderPanelHeader`，以及根节点 `className` / `style`。
-      </Text>
+      <Text type="secondary">自定义渲染 API：`renderDateCell`、`renderEventBlock`、`renderPanelHeader`，以及根节点 `className` / `style`。</Text>
       <ScheduleCalendar
         locale={locale}
         mode="schedule"
@@ -52,16 +50,14 @@ const CustomRenderExample = () => {
         allowMultiSelect={false}
         className="demo-schedule-calendar-custom"
         style={{ boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)' }}
-        onCreate={(values, { slots }) => {
-          const firstSlot = slots[0];
-          const lastSlot = slots[slots.length - 1];
+        onCreate={(values, { start, end }) => {
           setEvents(list =>
             list.concat({
               id: `iv-${Date.now()}`,
               title: values.title,
               detail: values.detail,
-              start: firstSlot.start,
-              end: lastSlot.end
+              start,
+              end
             })
           );
           message.success(`已创建：${values.title}`);
@@ -88,26 +84,18 @@ const CustomRenderExample = () => {
             <span style={{ fontSize: 11 }}>{dateEvents.length ? `${dateEvents.length} 场` : '—'}</span>
           </div>
         )}
-        renderTimeSlot={(slot, { selected }) => (
-          <div
-            style={{
-              width: '100%',
-              padding: '8px 10px',
-              borderRadius: 10,
-              textAlign: 'center',
-              background: selected ? '#1677ff' : slot.status === 'free' ? '#fff' : slot.status === 'occupied' ? '#fff1f0' : '#f0f0f0',
-              color: selected ? '#fff' : undefined,
-              opacity: slot.status === 'disabled' ? 0.55 : 1
-            }}
-          >
-            {dayjs(slot.start).format('HH:mm')} - {dayjs(slot.end).format('HH:mm')}
-          </div>
-        )}
-        renderOccupiedSlot={(slot, { events: slotEvents }) => (
-          <Space size={4} wrap>
-            <Tag color="red">冲突</Tag>
-            <span style={{ fontSize: 12 }}>{slotEvents.map(item => item.title).join('、')}</span>
-          </Space>
+        renderEventBlock={(event, { start, end }) => (
+          <Flex vertical gap={2}>
+            <Space size={4}>
+              <Tag color="red" style={{ marginInlineEnd: 0 }}>
+                已约
+              </Tag>
+              <span style={{ fontSize: 12, fontWeight: 600 }}>{event.title}</span>
+            </Space>
+            <span style={{ fontSize: 11, color: 'rgba(0,0,0,0.45)' }}>
+              {dayjs(start).format('HH:mm')} - {dayjs(end).format('HH:mm')}
+            </span>
+          </Flex>
         )}
         renderPanelHeader={({ date, mode, events: dayEvents }) => (
           <Text strong>
