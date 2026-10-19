@@ -1,0 +1,2 @@
+"use strict";(globalThis.webpackChunk_react_calendar_1_1_1||=[]).push([[5867],{85867(r,e,c){var u=c(94922);c.d(e,["A",0,(r,e=!1)=>{const c=(0,u.useRef)(r);return e||(c.current=r),(0,u.useCallback)((...r)=>c.current&&c.current(...r),[])}])}}]);
+//# sourceMappingURL=5867.a022bb39.chunk.js.map

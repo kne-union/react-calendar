@@ -1,2 +1,0 @@
-"use strict";(globalThis.webpackChunk_react_calendar_1_1_0||=[]).push([[263,4055],{35526(a,e,r){r.r(e);const c={ReactCalendar:r(2575).A};r.d(e,["default",0,c,"manifest",0,{name:"react-calendar",version:"1.1.0","open-version":!0,"public-url":"/react-calendar",modules:[{name:"react-calendar",baseDir:"/home/runner/work/react-calendar/react-calendar",description:"\u5b9e\u73b0\u4e00\u4e2a\u65e5\u7a0b\u7684\u7ec4\u4ef6",packageName:"@kne/react-calendar"}]}])},17040(){}}]);
-//# sourceMappingURL=4055.44610cd2.chunk.js.map
