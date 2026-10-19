@@ -117,32 +117,10 @@ const SchedulePanel = ({
   const formPopover = selection ? (
     <div className={classNames(style['form-popover'], { [style['form-sheet-content']]: isMobile })}>
       <div className={style['form-popover-title']}>{formatMessage({ id: 'SchedulePanel.newScheduleTitle' })}</div>
-      <TimeWindow
-        className={style['form-time-window']}
-        size={isMobile ? 'default' : 'small'}
-        value={[new Date(selection.startMs), new Date(selection.endMs)]}
-        range={windowRange}
-        step={timeStep}
-        minDuration={timeStep}
-        resizable={allowMultiSelect}
-        debounceWait={120}
-        format="HH:mm"
-        separator=" - "
-        onChange={value => {
-          if (!value) {
-            return;
-          }
-          const range = { startMs: value[0].getTime(), endMs: value[1].getTime() };
-          setSelection(range);
-          emitRange(range);
-        }}
-      />
-      {conflicts.length ? (
-        <Alert className={style['form-conflict']} type="warning" showIcon title={`${formatMessage({ id: 'SchedulePanel.conflict' }, { count: conflicts.length })}：${conflicts.map(event => event.title).join('、')}`} />
-      ) : null}
       <Form
         {...formProps}
         {...(isMobile ? { size: 'large' } : null)}
+        className={classNames(style['form-popover-form'], formProps?.className)}
         data={getDefaultFormValues(defaultFormValues, formContext)}
         onSubmit={async values => {
           try {
@@ -153,7 +131,32 @@ const SchedulePanel = ({
           }
         }}
       >
-        {formInner || <DefaultFormInner />}
+        <div className={style['form-popover-body']}>
+          <TimeWindow
+            className={style['form-time-window']}
+            size={isMobile ? 'default' : 'small'}
+            value={[new Date(selection.startMs), new Date(selection.endMs)]}
+            range={windowRange}
+            step={timeStep}
+            minDuration={timeStep}
+            resizable={allowMultiSelect}
+            debounceWait={120}
+            format="HH:mm"
+            separator=" - "
+            onChange={value => {
+              if (!value) {
+                return;
+              }
+              const range = { startMs: value[0].getTime(), endMs: value[1].getTime() };
+              setSelection(range);
+              emitRange(range);
+            }}
+          />
+          {conflicts.length ? (
+            <Alert className={style['form-conflict']} type="warning" showIcon title={`${formatMessage({ id: 'SchedulePanel.conflict' }, { count: conflicts.length })}：${conflicts.map(event => event.title).join('、')}`} />
+          ) : null}
+          {formInner || <DefaultFormInner />}
+        </div>
         <div className={style['form-actions']}>
           <Button onClick={clearSelection}>{formatMessage({ id: 'SchedulePanel.cancel' })}</Button>
           <SubmitButton>{formatMessage({ id: 'SchedulePanel.save' })}</SubmitButton>

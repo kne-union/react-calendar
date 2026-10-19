@@ -360,14 +360,95 @@
   max-width: calc(100vw - 24px);
 }
 
-.schedule-popover :global(.ant-popover-inner) {
+// antd 5 用 inner，antd 6 起容器是 container。外层只限高不滚动，滚动条放在标题和按钮之间。
+.schedule-popover:global(.ant-popover) :global(.ant-popover-inner),
+.schedule-popover:global(.ant-popover) :global(.ant-popover-container) {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   max-width: calc(100vw - 24px);
-  max-height: calc(100vh - 48px);
-  overflow: auto;
+  max-height: calc(100vh - 16px);
+  max-height: calc(100dvh - 16px);
+  overflow: hidden;
+  padding-right: 0 !important;
+  padding-inline-end: 0 !important;
 }
 
 .schedule-popover :global(.ant-popover-inner-content) {
   max-width: calc(100vw - 56px);
+}
+
+.schedule-popover .form-popover {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  width: 300px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+}
+
+.schedule-popover .form-popover-title {
+  flex: none;
+  padding-right: 12px;
+}
+
+.schedule-popover .form-popover-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+
+  // Form 外层是 label 测量用的 span，再里面才是 InfoPage 的 flex。两层都要能被压矮，滚动才会落在 body 上。
+  // min-width: 0 避免滚动条把内容最小宽度撑开，把弹层左边挤出可视区。
+  > *,
+  > * > :global(.ant-flex) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  > * > :global(.ant-flex) {
+    gap: 0 !important;
+  }
+}
+
+.schedule-popover .form-popover-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  padding-right: 6px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  @include scrollbar.panel-scrollbar;
+}
+
+.schedule-popover .form-time-window {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.schedule-popover .form-actions {
+  flex: none;
+  margin-top: 8px;
+  padding-right: 12px;
+}
+
+.schedule-popover .event-detail {
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  padding-right: 6px;
+  overflow: auto;
+  @include scrollbar.panel-scrollbar;
 }
 
 .form-popover-title {
